@@ -1,0 +1,13 @@
+{
+  "name": "count-words",
+  "version": "1.0.0",
+  "description": "A utility for counting the frequency of words in a given string or file.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc word-count.ts",
+    "dev": "node word-count.js" 
+  },
+  "keywords": [],
+  "author": "Tanner Dolby",
+  "license": "MIT"
+}
