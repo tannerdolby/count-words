@@ -1,7 +1,12 @@
 const fs = require("fs");
 
+type FrequencyObject = {
+    frequency: number,
+    usage: number | string
+};
+
 interface FrequencyMap {
-    [key: string]: number;
+    [key: string]: FrequencyObject;
 }
 
 /**
@@ -11,13 +16,13 @@ interface FrequencyMap {
 class WordFrequencies {
     frequencies: FrequencyMap;
     wordList: string[];
-    wordRegex = /(\w+\'\w+)|(\w+)/;
+    wordRegex: RegExp = /(\w+\'\w+)|(\w+)/;
+    totalWords: number;
 
     constructor() {
-        this.frequencies = {
-            "numberOfWords": 0,
-        };
+        this.frequencies = {};
         this.wordList = [];
+        this.totalWords = 0;
     }
 
     /**
@@ -54,19 +59,34 @@ class WordFrequencies {
                 return lowA < lowB ? -1 : 1;
             })
             .map((word: string) => {
-                let cleanWord = word.match(this.wordRegex)[0];
-                this.frequencies[cleanWord] = 0;
+                let cleanWordObj: any = word.match(this.wordRegex);
+                let cleanWord = cleanWordObj[0] != undefined ? cleanWordObj[0] : "";
+                this.frequencies[cleanWord] = {"frequency": 0, "usage": 0};
                 this.wordList.push(word);
                 return cleanWord;
             });
         
-        this.frequencies["numberOfWords"] = words.length;
+        this.totalWords = words.length;
 
         words.forEach((word: string) => {
-            this.frequencies[word] += 1;
+            console.log(this.frequencies[word]);
+            let wordData: FrequencyObject = this.frequencies[word];
+            wordData.frequency += 1;
+            wordData.usage = `${((wordData.frequency / this.totalWords) * 100).toFixed(2)}%`;
         });
 
         return this.frequencies;
+    }
+
+    sortByFrequency(): Array<FrequencyMap> {
+        let sorted: Array<FrequencyMap> = [];
+        for (const key in this.frequencies) {
+            let wordData: FrequencyMap = {};
+            wordData[key] = this.frequencies[key];
+            sorted.push(wordData);
+        }
+        sorted.sort();
+        return sorted;
     }
 
     printFrequencies() {      
@@ -77,8 +97,9 @@ class WordFrequencies {
 };
 
 let wf = new WordFrequencies();
-let frequenciesOne = wf.countWordsInFile("./words.md");
+let frequenciesOne = wf.countWordsInFile("./src/words.md");
 console.log("Ex 1: ", frequenciesOne); // {"numberOfWords": 113, "Hello": 1, ... n}
 let frequenciesTwo = wf.countWordsInStr(`Hello, world! This is some test text to outline the capabilities of counting the occurence of each word in a given text document. I am going to repeat I a bunch of times to show how repeating I can be very annoying to read.`);
 console.log("Ex 2: ", frequenciesTwo); // {"Hello": 1, ... n}
 wf.printFrequencies(); // Hello: 1
+console.log(wf.sortByFrequency());
