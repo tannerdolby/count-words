@@ -54,26 +54,50 @@ class WordFrequencies {
         });
         this.totalWords = words.length;
         words.forEach((word) => {
-            console.log(this.frequencies[word]);
             let wordData = this.frequencies[word];
             wordData.frequency += 1;
-            wordData.usage = `${((wordData.frequency / this.totalWords) * 100).toFixed(2)}%`;
+            wordData.usage = `${((wordData.frequency / this.totalWords) * 100).toFixed(1)}%`;
         });
         return this.frequencies;
     }
+    /**
+     * Returns a list of word objects in descending order based on frequency.
+     * @return {Array<FrequencyMap>} An array of word objects.
+     */
     sortByFrequency() {
-        let sorted = [];
+        let wordList = [];
         for (const key in this.frequencies) {
             let wordData = {};
             wordData[key] = this.frequencies[key];
-            sorted.push(wordData);
+            wordList.push(this.frequencies[key]);
         }
-        sorted.sort();
-        return sorted;
+        wordList.sort((a, b) => {
+            if (a.frequency == b.frequency)
+                return 0;
+            return a.frequency > b.frequency ? -1 : 1;
+        });
+        return wordList.map(wordObj => {
+            return this.searchMapForKey(wordObj);
+        });
+    }
+    /**
+     * Search the frequency table for a given word based on the provided `FrequencyObject`.
+     * @param {FrequencyObject} wordPair An object representing a words frequency. E.g. `{"frequency": 1, usage: "2.27%"}`
+     * @return {FrequencyMap} A completed word object where the key equals the word and value equals the FrequencyObject.
+     */
+    searchMapForKey(pair) {
+        let foundWordObj = {};
+        for (const key in this.frequencies) {
+            if (this.frequencies[key] == pair) {
+                foundWordObj[key] = pair;
+                return foundWordObj;
+            }
+        }
+        return foundWordObj;
     }
     printFrequencies() {
         for (const key in this.frequencies) {
-            console.log(`${key}: ${this.frequencies[key]}`);
+            console.log(`${key}: { frequency: ${this.frequencies[key].frequency}, usage: ${this.frequencies[key].usage} }`);
         }
     }
 }
@@ -83,5 +107,5 @@ let frequenciesOne = wf.countWordsInFile("./src/words.md");
 console.log("Ex 1: ", frequenciesOne); // {"numberOfWords": 113, "Hello": 1, ... n}
 let frequenciesTwo = wf.countWordsInStr(`Hello, world! This is some test text to outline the capabilities of counting the occurence of each word in a given text document. I am going to repeat I a bunch of times to show how repeating I can be very annoying to read.`);
 console.log("Ex 2: ", frequenciesTwo); // {"Hello": 1, ... n}
-wf.printFrequencies(); // Hello: 1
+wf.printFrequencies();
 console.log(wf.sortByFrequency());

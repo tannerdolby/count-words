@@ -36,7 +36,17 @@ declare class WordFrequencies {
      * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
      */
     countWords(document: string): FrequencyMap;
+    /**
+     * Returns a list of word objects in descending order based on frequency.
+     * @return {Array<FrequencyMap>} An array of word objects.
+     */
     sortByFrequency(): Array<FrequencyMap>;
+    /**
+     * Search the frequency table for a given word based on the provided `FrequencyObject`.
+     * @param {FrequencyObject} wordPair An object representing a words frequency. E.g. `{"frequency": 1, usage: "2.27%"}`
+     * @return {FrequencyMap} A completed word object where the key equals the word and value equals the FrequencyObject.
+     */
+    searchMapForKey(pair: FrequencyObject): FrequencyMap;
     printFrequencies(): void;
 }
 declare let wf: WordFrequencies;
