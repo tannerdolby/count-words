@@ -1,7 +1,7 @@
 declare const fs: any;
 declare type FrequencyObject = {
     frequency: number;
-    usage: number | string;
+    usage: number;
 };
 interface FrequencyMap {
     [key: string]: FrequencyObject;
@@ -40,7 +40,8 @@ declare class WordFrequencies {
      * Returns a list of word objects in descending order based on frequency.
      * @return {Array<FrequencyMap>} An array of word objects.
      */
-    sortByFrequency(): Array<FrequencyMap>;
+    sortByFrequency(frequencyTable: FrequencyMap): Array<FrequencyMap>;
+    getNthWord(target: number): FrequencyMap | undefined;
     /**
      * Search the frequency table for a given word based on the provided `FrequencyObject`.
      * @param {FrequencyObject} wordPair An object representing a words frequency. E.g. `{"frequency": 1, usage: "2.27%"}`
@@ -50,5 +51,6 @@ declare class WordFrequencies {
     printFrequencies(): void;
 }
 declare let wf: WordFrequencies;
-declare let frequenciesOne: FrequencyMap;
-declare let frequenciesTwo: FrequencyMap;
+declare const doc = "Hello, World. This is some example text that \nrepeat the word test. Usually a test covers multiple topics\nbut the real test is to learn something by the end of a test.";
+declare const frequencies: FrequencyMap;
+declare const frequencyList: FrequencyMap[];

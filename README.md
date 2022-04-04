@@ -5,31 +5,41 @@ Count the number of occurences for each word in a given string or file and retur
 Provide a string or local file containing text which can be scanned in order to populate the frequency table.
 
 ```js
-const wf = new WordFrequencies();
-const doc = `Hello, World! why Hello again, the book I am reading is out of this world. I can't believe I haven't read the series.`;
+let wf = new WordFrequencies();
+
+const doc = `Hello, World. This is some example text that 
+repeat the word test. Usually a test covers multiple topics
+but the real test is to learn something by the end of a test.`;
+
 const frequencies = wf.countWordsInString(doc);
+const frequencyList = wf.sortByFrequency(frequencies);
 console.log(frequencies);
 /*
 {
-  again: { frequency: 1, usage: '4.3%' },
-  am: { frequency: 1, usage: '4.3%' },
-  believe: { frequency: 1, usage: '4.3%' },
-  book: { frequency: 1, usage: '4.3%' },
-  "can't": { frequency: 1, usage: '4.3%' },
-  "haven't": { frequency: 1, usage: '4.3%' },
-  Hello: { frequency: 2, usage: '8.7%' },
-  I: { frequency: 3, usage: '13.0%' },
-  is: { frequency: 1, usage: '4.3%' },
-  of: { frequency: 1, usage: '4.3%' },
-  out: { frequency: 1, usage: '4.3%' },
-  read: { frequency: 1, usage: '4.3%' },
-  reading: { frequency: 1, usage: '4.3%' },
-  series: { frequency: 1, usage: '4.3%' },
-  the: { frequency: 2, usage: '8.7%' },
-  this: { frequency: 1, usage: '4.3%' },
-  why: { frequency: 1, usage: '4.3%' },
-  World: { frequency: 1, usage: '4.3%' },
-  world: { frequency: 1, usage: '4.3%' }
+  repeat: { frequency: 1, usage: 3.2 },
+  a: { frequency: 2, usage: 6.5 },
+  by: { frequency: 1, usage: 3.2 },
+  covers: { frequency: 1, usage: 3.2 },
+  end: { frequency: 1, usage: 3.2 },
+  example: { frequency: 1, usage: 3.2 },
+  Hello: { frequency: 1, usage: 3.2 },
+  is: { frequency: 2, usage: 6.5 },
+  learn: { frequency: 1, usage: 3.2 },
+  multiple: { frequency: 1, usage: 3.2 },
+  of: { frequency: 1, usage: 3.2 },
+  real: { frequency: 1, usage: 3.2 },
+  some: { frequency: 1, usage: 3.2 },
+  something: { frequency: 1, usage: 3.2 },
+  test: { frequency: 4, usage: 12.9 },
+  text: { frequency: 1, usage: 3.2 },
+  that: { frequency: 1, usage: 3.2 },
+  the: { frequency: 3, usage: 9.7 },
+  This: { frequency: 1, usage: 3.2 },
+  to: { frequency: 1, usage: 3.2 },
+  topics: { frequency: 1, usage: 3.2 },
+  Usually: { frequency: 1, usage: 3.2 },
+  word: { frequency: 1, usage: 3.2 },
+  World: { frequency: 1, usage: 3.2 }
 }
 */
 ```
@@ -37,29 +47,33 @@ console.log(frequencies);
 Sort result by frequency:
 
 ```js
-const frequencyList = wf.sortByFrequency();
 console.log(frequencyList);
 /*
 [
-  { I: { frequency: 3, usage: '13.0%' } },
-  { Hello: { frequency: 2, usage: '8.7%' } },
-  { the: { frequency: 2, usage: '8.7%' } },
-  { again: { frequency: 1, usage: '4.3%' } },
-  { am: { frequency: 1, usage: '4.3%' } },
-  { believe: { frequency: 1, usage: '4.3%' } },
-  { book: { frequency: 1, usage: '4.3%' } },
-  { "can't": { frequency: 1, usage: '4.3%' } },
-  { "haven't": { frequency: 1, usage: '4.3%' } },
-  { is: { frequency: 1, usage: '4.3%' } },
-  { of: { frequency: 1, usage: '4.3%' } },
-  { out: { frequency: 1, usage: '4.3%' } },
-  { read: { frequency: 1, usage: '4.3%' } },
-  { reading: { frequency: 1, usage: '4.3%' } },
-  { series: { frequency: 1, usage: '4.3%' } },
-  { this: { frequency: 1, usage: '4.3%' } },
-  { why: { frequency: 1, usage: '4.3%' } },
-  { World: { frequency: 1, usage: '4.3%' } },
-  { world: { frequency: 1, usage: '4.3%' } }
+  { test: { frequency: 4, usage: 12.9 } },
+  { the: { frequency: 3, usage: 9.7 } },
+  { a: { frequency: 2, usage: 6.5 } },
+  { is: { frequency: 2, usage: 6.5 } },
+  { repeat: { frequency: 1, usage: 3.2 } },
+  { by: { frequency: 1, usage: 3.2 } },
+  { covers: { frequency: 1, usage: 3.2 } },
+  { end: { frequency: 1, usage: 3.2 } },
+  { example: { frequency: 1, usage: 3.2 } },
+  { Hello: { frequency: 1, usage: 3.2 } },
+  { learn: { frequency: 1, usage: 3.2 } },
+  { multiple: { frequency: 1, usage: 3.2 } },
+  { of: { frequency: 1, usage: 3.2 } },
+  { real: { frequency: 1, usage: 3.2 } },
+  { some: { frequency: 1, usage: 3.2 } },
+  { something: { frequency: 1, usage: 3.2 } },
+  { text: { frequency: 1, usage: 3.2 } },
+  { that: { frequency: 1, usage: 3.2 } },
+  { This: { frequency: 1, usage: 3.2 } },
+  { to: { frequency: 1, usage: 3.2 } },
+  { topics: { frequency: 1, usage: 3.2 } },
+  { Usually: { frequency: 1, usage: 3.2 } },
+  { word: { frequency: 1, usage: 3.2 } },
+  { World: { frequency: 1, usage: 3.2 } }
 ]
 */
 ```
