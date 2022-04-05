@@ -5,14 +5,13 @@ Count the number of occurences for each word in a given string or file and retur
 Provide a string or local file containing text which can be scanned in order to populate the frequency table.
 
 ```js
-let wf = new WordFrequencies();
+const wf = new WordFrequencies();
 
 const doc = `Hello, World. This is some example text that 
 repeat the word test. Usually a test covers multiple topics
 but the real test is to learn something by the end of a test.`;
 
 const frequencies = wf.countWordsInString(doc);
-const frequencyList = wf.sortByFrequency(frequencies);
 console.log(frequencies);
 /*
 {
@@ -47,6 +46,7 @@ console.log(frequencies);
 Sort result by frequency:
 
 ```js
+const frequencyList = wf.sortedFrequencyList;
 console.log(frequencyList);
 /*
 [
