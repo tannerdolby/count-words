@@ -2,7 +2,6 @@ declare const fs: any;
 declare type FrequencyObject = {
     frequency: number;
     usage: number;
-    nthWord: number;
 };
 interface FrequencyMap {
     [key: string]: FrequencyObject;
@@ -12,8 +11,10 @@ interface FrequencyMap {
  */
 declare class WordFrequencies {
     frequencies: FrequencyMap;
+    sortedFrequencyList: Array<FrequencyMap>;
     wordList: Array<string>;
-    uniqueWordList: Set<string>;
+    sortedUniqueWordList: Array<string>;
+    unsortedUniqueWordList: Array<string>;
     wordRegex: RegExp;
     words: number;
     uniqueWords: number;
@@ -33,16 +34,16 @@ declare class WordFrequencies {
      */
     countWordsInFile(filePath: string, encoding?: string): FrequencyMap;
     /**
-     * Count the frequency of words in a given string
+     * Count the frequency of words in a given string or file
      * @param {string} document A string representing the text content to scan.
      * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
      */
-    countWords(document: string): FrequencyMap;
+    countWords(doc: string): FrequencyMap;
     /**
      * Returns a list of word objects in descending order based on frequency.
      * @return {Array<FrequencyMap>} An array of word objects.
      */
-    sortByFrequency(): Array<FrequencyMap>;
+    private sortByFrequency;
     /**
      * Search the frequency table for a given word based on the provided `FrequencyObject`.
      * @param {FrequencyObject} wordPair An object representing a words frequency. E.g. `{"frequency": 1, usage: "2.27%"}`
@@ -54,7 +55,7 @@ declare class WordFrequencies {
     doesScanDataExist(): void | Error;
     hasScanRun(): boolean;
 }
-declare let wf: WordFrequencies;
 declare const doc = "Hello, World. This is some example text that \nrepeats the word test. Usually a test covers multiple topics\nbut the real test is to learn something by the end of a test.";
+declare const wf: WordFrequencies;
 declare const frequencies: FrequencyMap;
 declare const frequencyList: FrequencyMap[];

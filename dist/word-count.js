@@ -6,8 +6,10 @@ const fs = require("fs");
 class WordFrequencies {
     constructor() {
         this.frequencies = {};
+        this.sortedFrequencyList = [];
         this.wordList = [];
-        this.uniqueWordList = new Set();
+        this.sortedUniqueWordList = [];
+        this.unsortedUniqueWordList = [];
         this.wordRegex = /(\w+\'\w+)|(\w+)/;
         this.words = 0;
         this.uniqueWords = 0;
@@ -34,30 +36,30 @@ class WordFrequencies {
     }
     ;
     /**
-     * Count the frequency of words in a given string
+     * Count the frequency of words in a given string or file
      * @param {string} document A string representing the text content to scan.
      * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
      */
-    countWords(document) {
-        const words = document.split(/\s+/)
-            .sort((a, b) => {
-            return a.localeCompare(b);
-        })
-            .map((word) => {
-            let cleanWordObj = word.match(this.wordRegex);
-            let cleanWord = cleanWordObj && cleanWordObj[0] != undefined ? cleanWordObj[0] : "";
-            this.frequencies[cleanWord] = { "frequency": 0, "usage": 0, "nthWord": -1 };
-            this.wordList.push(cleanWord);
-            this.uniqueWordList.add(cleanWord);
+    countWords(doc) {
+        let words = doc.split(/\s+/).map((word, index) => {
+            const cleanWordObj = word.match(this.wordRegex);
+            const cleanWord = cleanWordObj && cleanWordObj[0] != undefined ? cleanWordObj[0] : "";
+            this.frequencies[cleanWord] = { "frequency": 0, "usage": 0 };
             return cleanWord;
         });
         this.words = words.length;
-        this.uniqueWords = this.uniqueWordList.size;
+        this.unsortedUniqueWordList = [...new Set(words)];
+        words = words.sort((a, b) => a.localeCompare(b));
         words.forEach((word) => {
-            let wordData = this.frequencies[word];
+            this.wordList.push(word);
+            this.sortedUniqueWordList.push(word);
+            const wordData = this.frequencies[word];
             wordData.frequency += 1;
-            wordData.usage = Number(((wordData.frequency / this.words) * 100).toFixed(1));
+            wordData.usage = parseFloat(((wordData.frequency / this.words) * 100).toFixed(2));
         });
+        this.sortedUniqueWordList = [...new Set(this.sortedUniqueWordList)];
+        this.uniqueWords = this.sortedUniqueWordList.length;
+        this.sortedFrequencyList = this.sortByFrequency();
         return this.frequencies;
     }
     /**
@@ -65,6 +67,7 @@ class WordFrequencies {
      * @return {Array<FrequencyMap>} An array of word objects.
      */
     sortByFrequency() {
+        this.doesScanDataExist();
         let frequencyList = [];
         for (const key in this.frequencies) {
             let wordData = {};
@@ -96,19 +99,15 @@ class WordFrequencies {
         return foundWord;
     }
     getNthWord(target) {
-        if (Object.keys(this.frequencies).length > 0 && this.wordList.length > 0) {
-            let wordObj = {};
-            let word = this.wordList[target];
-            console.log(this.wordList); // (doh its sorted already so indices arent natural)
-            wordObj[word] = this.frequencies[word];
-            return wordObj;
-        }
+        this.doesScanDataExist();
+        const key = this.unsortedUniqueWordList[target];
+        return this.sortedFrequencyList.find(wordObj => Object.keys(wordObj).includes(key));
     }
     printFrequencies() {
         this.doesScanDataExist();
         let frequencies = "";
         for (const key in this.frequencies) {
-            console.log(`${key}: { frequency: ${this.frequencies[key].frequency}, usage: ${this.frequencies[key].usage} }`);
+            frequencies += `${key}: { frequency: ${this.frequencies[key].frequency}, usage: ${this.frequencies[key].usage} }`;
         }
         return frequencies;
     }
@@ -122,16 +121,14 @@ class WordFrequencies {
     }
 }
 ;
-let wf = new WordFrequencies();
 const doc = `Hello, World. This is some example text that 
 repeats the word test. Usually a test covers multiple topics
 but the real test is to learn something by the end of a test.`;
+const wf = new WordFrequencies();
 const frequencies = wf.countWordsInString(doc);
-const frequencyList = wf.sortByFrequency();
-console.log(wf.printFrequencies());
+const frequencyList = wf.sortedFrequencyList;
+console.log("foo", wf.printFrequencies());
 console.log(frequencies);
 console.log(frequencyList);
-// console.log("Search sorted frequency list: ", frequencyList.find((node: FrequencyMap) => Object.keys(node).includes("test")));
-// console.log("4th word: ", wf.getNthWord(4));
-console.log(wf.wordList);
 console.log(wf);
+console.log(wf.getNthWord(1));
