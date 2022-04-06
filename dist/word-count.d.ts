@@ -36,7 +36,7 @@ declare class WordFrequencies {
     /**
      * Count the frequency of words in a given string or file
      * @param {string} document A string representing the text content to scan.
-     * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
+     * @return {Map<string, FrequencyObject>} A hash map sorted in ascending order (a-z) containing all words and their frequencies.
      */
     countWords(doc: string): FrequencyMap;
     /**
