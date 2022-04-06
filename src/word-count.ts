@@ -57,7 +57,7 @@ class WordFrequencies {
     /**
      * Count the frequency of words in a given string or file
      * @param {string} document A string representing the text content to scan. 
-     * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
+     * @return {Map<string, FrequencyObject>} A hash map sorted in ascending order (a-z) containing all words and their frequencies.
      */
     countWords(doc: string): FrequencyMap {
         let words: string[] = doc.split(/\s+/).map((word, index) => {
@@ -77,7 +77,7 @@ class WordFrequencies {
             this.sortedUniqueWordList.push(word);
             const wordData: FrequencyObject = this.frequencies[word];
             wordData.frequency += 1;
-            wordData.usage = parseFloat(((wordData.frequency / this.words) * 100).toFixed(2));
+            wordData.usage = parseFloat(((wordData.frequency / this.words) * 100).toFixed(1));
         });
 
         this.sortedUniqueWordList = [...new Set(this.sortedUniqueWordList)];
@@ -94,11 +94,10 @@ class WordFrequencies {
     private sortByFrequency(): Array<FrequencyMap> {
         this.doesScanDataExist();
         let frequencyList: Array<FrequencyObject> = [];
-
         for (const key in this.frequencies) {
-            let wordData: FrequencyMap = {};
+            const wordData: FrequencyMap = {};
             wordData[key] = this.frequencies[key];
-            frequencyList.push(this.frequencies[key]);
+            frequencyList.push(wordData[key]);
         }
         
         frequencyList.sort((a: FrequencyObject, b: FrequencyObject) => {

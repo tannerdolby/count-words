@@ -11,10 +11,7 @@ but the real test is to learn something by the end of a test.`;
 
 const wf = new WordFrequencies();
 const frequencies = wf.countWordsInString(doc);
-const frequencyList = wf.sortedFrequencyList;
-
 console.log(`Frequencies: ${frequencies}`);
-console.log(`Frequency List: ${frequencyList}`);
 
 /*
 Frequencies: {
