@@ -15,11 +15,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tannerdolby/count-words.git"
+    "url": "https://github.com/tannerdolby/word-counts.git"
   },
-  "homepage": "https://github.com/tannerdolby/count-words#readme",
+  "homepage": "https://github.com/tannerdolby/word-counts#readme",
   "bugs": {
-    "url": "https://github.com/tannerdolby/count-words/issues"
+    "url": "https://github.com/tannerdolby/word-counts/issues"
   },
   "keywords": [
     "count-words",
