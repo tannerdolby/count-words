@@ -19,8 +19,8 @@ but the real test is to learn something by the end of a test.`;
 const wc = new WordCounts();
 const frequencies = wc.count(doc);
 console.log(frequencies);
-console.log(wc.wordCount); // 32
-console.log(wc.uniqueWordCount); // 30
+console.log(wc.wordCount);
+console.log(wc.uniqueWordCount);
 
 /*
 Frequencies: {
