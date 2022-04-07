@@ -13,21 +13,21 @@ declare class WordFrequencies {
     frequencies: FrequencyMap;
     sortedFrequencyList: Array<FrequencyMap>;
     wordList: Array<string>;
+    uniqueWordList: Array<string>;
     sortedUniqueWordList: Array<string>;
-    unsortedUniqueWordList: Array<string>;
     wordRegex: RegExp;
     words: number;
     uniqueWords: number;
     constructor();
     /**
-     * Count the frequency of every from an input string.
+     * Record the frequency of every word from an input string.
      * @param {string} filePath A local filepath representing a document to be scanned.
      * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
      * @return {FrequencyMap} A hash table containing all word frequencies.
      */
     countWordsInString(strToCheck: string): FrequencyMap;
     /**
-     * Count the frequency of every word from a specified local file.
+     * Record the frequency of every word from a specified local files contents.
      * @param {string} filePath A local filepath representing a document to be scanned.
      * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
      * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
@@ -52,10 +52,6 @@ declare class WordFrequencies {
     searchMapForKey(pair: FrequencyObject): FrequencyMap;
     getNthWord(target: number): FrequencyMap | undefined;
     printFrequencies(): String;
-    doesScanDataExist(): void | Error;
     hasScanRun(): boolean;
+    doesScanDataExist(): boolean | Error;
 }
-declare const doc = "Hello, World. This is some example text that \nrepeats the word test. Usually a test covers multiple topics\nbut the real test is to learn something by the end of a test.";
-declare const wf: WordFrequencies;
-declare const frequencies: FrequencyMap;
-declare const frequencyList: FrequencyMap[];
