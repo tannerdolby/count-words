@@ -1,12 +1,25 @@
 {
-  "name": "count-words",
-  "version": "1.0.0",
+  "name": "word-counts",
+  "version": "0.1.0",
   "description": "A utility for counting the frequency of words in a given string or file.",
-  "main": "./dist/word-count.js",
+  "main": "./dist/word-counts.js",
   "scripts": {
     "build": "tsc",
-    "dev": "node ./dist/word-count.js",
+    "dev": "node ./dist/word-counts.js",
     "test": "jest"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tannerdolby/count-words.git"
+  },
+  "homepage": "https://github.com/tannerdolby/count-words#readme",
+  "bugs": {
+    "url": "https://github.com/tannerdolby/count-words/issues"
   },
   "keywords": [
     "count-words",
