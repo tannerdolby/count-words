@@ -1,1 +1,0 @@
-Hello, World! This is some test text to outline the capabilities of counting the frequency of each word in a given text document. I am going to repeat words a bunch of times to show how to utility will count each word in this doc. Well, Hello World! It's nice to meet you again its a pleasure to meet you. Let us continue discussing the root of the cause and find a fix.
