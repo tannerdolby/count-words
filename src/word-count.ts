@@ -16,8 +16,8 @@ class WordFrequencies {
     frequencies: FrequencyMap;
     sortedFrequencyList: Array<FrequencyMap>;
     wordList: Array<string>;
+    uniqueWordList: Array<string>;
     sortedUniqueWordList: Array<string>;
-    unsortedUniqueWordList: Array<string>;
     wordRegex: RegExp;
     words: number;
     uniqueWords: number;
@@ -26,15 +26,15 @@ class WordFrequencies {
         this.frequencies = {};
         this.sortedFrequencyList = [];
         this.wordList = [];
+        this.uniqueWordList = [];
         this.sortedUniqueWordList = [];
-        this.unsortedUniqueWordList = [];
         this.wordRegex = /(\w+\'\w+)|(\w+)/;
         this.words = 0;
         this.uniqueWords = 0;
     }
 
     /**
-     * Count the frequency of every from an input string.
+     * Record the frequency of every word from an input string.
      * @param {string} filePath A local filepath representing a document to be scanned.
      * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
      * @return {FrequencyMap} A hash table containing all word frequencies.
@@ -44,7 +44,7 @@ class WordFrequencies {
     };
 
     /**
-     * Count the frequency of every word from a specified local file.
+     * Record the frequency of every word from a specified local files contents.
      * @param {string} filePath A local filepath representing a document to be scanned.
      * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
      * @return {FrequencyMap} A hash table sorted in ascending order (a-z) containing all words and their frequencies.
@@ -68,7 +68,7 @@ class WordFrequencies {
         });
 
         this.words = words.length;
-        this.unsortedUniqueWordList = [...new Set(words)];
+        this.uniqueWordList = [...new Set(words)];
         
         words = words.sort((a, b) => a.localeCompare(b));
 
@@ -92,7 +92,7 @@ class WordFrequencies {
      * @return {Array<FrequencyMap>} An array of word objects.
      */
     private sortByFrequency(): Array<FrequencyMap> {
-        this.doesScanDataExist();
+        if (!this.doesScanDataExist()) return [];
         let frequencyList: Array<FrequencyObject> = [];
         for (const key in this.frequencies) {
             const wordData: FrequencyMap = {};
@@ -127,42 +127,28 @@ class WordFrequencies {
     }
 
     getNthWord(target: number): FrequencyMap | undefined {
-        this.doesScanDataExist();
-        const key: string = this.unsortedUniqueWordList[target];
+        if (!this.doesScanDataExist()) return {};
+        const key: string = this.uniqueWordList[target];
         return this.sortedFrequencyList.find(wordObj => Object.keys(wordObj).includes(key));
     }
 
     printFrequencies(): String {
-        this.doesScanDataExist();
+        if (!this.doesScanDataExist()) return "";
         let frequencies = "";
         for (const key in this.frequencies) {
-            frequencies += `${key}: { frequency: ${this.frequencies[key].frequency}, usage: ${this.frequencies[key].usage} }`;
+            frequencies += `${key}: { frequency: ${this.frequencies[key].frequency}, usage: ${this.frequencies[key].usage} }\n`;
         }
-        return frequencies;
-    }
-
-    doesScanDataExist(): void | Error {
-        if (!this.hasScanRun()) throw Error("No data available. Make sure to run countWordsIn");
-        return;
+        return frequencies.slice(0, frequencies.length-1);
     }
 
     hasScanRun(): boolean {
         return Object.keys(this.frequencies).length > 0 ? true : false;
     }
+
+    doesScanDataExist(): boolean | Error {
+        if (!this.hasScanRun()) throw Error("No data available. Make sure to run countWordsIn*() to generate frequency tables.");
+        return true;
+    }
 };
 
-const doc = `Hello, World. This is some example text that 
-repeats the word test. Usually a test covers multiple topics
-but the real test is to learn something by the end of a test.`;
-
-const wf = new WordFrequencies();
-
-const frequencies = wf.countWordsInString(doc);
-const frequencyList = wf.sortedFrequencyList;
-console.log("foo", wf.printFrequencies());
-
-console.log(frequencies);
-console.log(frequencyList);
-console.log(wf);
-
-console.log(wf.getNthWord(1));
+module.exports = WordFrequencies;
