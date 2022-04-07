@@ -5,7 +5,8 @@
   "main": "./dist/word-count.js",
   "scripts": {
     "build": "tsc",
-    "dev": "node ./dist/word-count.js"
+    "dev": "node ./dist/word-count.js",
+    "test": "jest"
   },
   "keywords": [
     "count-words",
