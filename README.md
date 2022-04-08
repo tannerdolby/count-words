@@ -12,7 +12,7 @@ npm install word-counts
 Provide a string or local filepath containing text which can be scanned in order to populate the word frequency table.
 
 ```js
-const countWords = require("word-counts");
+const { countWords } = require("word-counts");
 
 const doc = `Hello, World. This is some example text that 
 repeats the word test. Usually a test covers multiple topics
