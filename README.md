@@ -49,7 +49,7 @@ console.log(wordTable.sortedFrequencyList);
 ]
 */
 
-countwordsInFile("words.md").then(data => {
+countWordsInFile("words.md").then(data => {
   console.log(data);
 });
 ```
