@@ -1,29 +1,30 @@
 # word-counts
-Record the frequency of every word in a given string or file. The `WordCounts` class includes additional useful data relative to word counts.
+Record the frequency of every word in a given string or file.
 
 ## Installation
-Install the package from [npm](https://www.npmjs.com/package/word-counts).
+Install the package from [npm](https://www.npmjs.com/package/word-counts)
 
 ```
 npm install word-counts
 ```
 
 ## Usage
-Provide a string or local file containing text which can be scanned in order to populate the word frequency table.
+Provide a string or local filepath containing text which can be scanned in order to populate the word frequency table.
 
 ```js
+const countWords = require("word-counts");
+
 const doc = `Hello, World. This is some example text that 
 repeats the word test. Usually a test covers multiple topics
 but the real test is to learn something by the end of a test.`;
 
-const wc = new WordCounts();
-const frequencies = wc.count(doc);
-console.log(frequencies);
-console.log(wc.wordCount);
-console.log(wc.uniqueWordCount);
+const wordTable = countWords(doc);
+console.log(wordTable);
+console.log(wordTable.wordCount);
+console.log(wordTable.uniqueWordCount);
 
 /*
-Frequencies: {
+{
   a: { frequency: 2, usage: 6.5 },
   by: { frequency: 1, usage: 3.2 },
   covers: { frequency: 1, usage: 3.2 },
@@ -37,8 +38,8 @@ Frequencies: {
 Sort result by frequency:
 
 ```js
-const frequencyList = wf.sortedFrequencyList;
-console.log(frequencyList);
+const wordTable = wc.countWords(doc);
+console.log(wordTable.sortedFrequencyList);
 /*
 [
   { test: { frequency: 4, usage: 12.9 } },
@@ -48,6 +49,32 @@ console.log(frequencyList);
 ]
 */
 ```
+
+## Methods
+`countWords`: Count the frequency of words in a given string.
+
+`countWordsInFile`: Count the frequency of words in a local file.
+
+`printFrequencies`: Get a stringified version of the word frequency table.
+
+`getNthWord`: Get the Nth word from the word list.
+
+### Attributes
+The `countWords` and `countWordsInFile` functions both return `WordMap` objects which contain the following attributes:
+
+`frequencies`: Object representing the word frequency table.
+
+`wordList`: A list of all the words.
+
+`uniqueWordList`: A list of all the unique words.
+
+`sortedUniqueWordList`: A sorted list of all the unique words.
+
+`sortedFrequencyList`: A sorted list of word frequency objects.
+
+`wordCount`: Count of all words.
+
+`uniqueWordCount`: Count of all unique words.
 
 ## Tests
 Install dev dependencies:
