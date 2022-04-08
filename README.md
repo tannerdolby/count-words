@@ -1,5 +1,5 @@
 # word-counts
-Record the frequency of every word in a given string or file.
+> Count all the words in a given string or file and return word counts in a hash table.
 
 ## Installation
 Install the package from [npm](https://www.npmjs.com/package/word-counts)
