@@ -1,7 +1,6 @@
 const {countWords, countWordsInFile} = require("../dist/word-counts");
 
 test("Scan a string and build frequency tables", () => {
-
     const doc = `Hello, World. This is some example text that 
     repeats the word test. Usually a test covers multiple topics
     but the real test is to learn something by the end of a test. A test
@@ -156,8 +155,8 @@ three: { frequency: 1, usage: 2.4 }`
     );
 });
 
-test("Scan a local files content and build frequency tables", () => {
-    const wordTable = countWordsInFile("words.md");
+test("Scan a local files content and build frequency tables", async () => {
+    const wordTable = await countWordsInFile("words.md");
 
     expect(wordTable.wordCount).toBe(79);
     expect(wordTable.uniqueWordCount).toBe(51);
