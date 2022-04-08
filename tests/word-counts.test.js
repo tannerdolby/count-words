@@ -81,18 +81,18 @@ test("Scan a string and build frequency tables", () => {
     ]);
 
     expect(wordTable.wordList).toEqual([
-        'a',         'a',        'A',       'but',
-        'by',        'covers',   'end',     'example',
-        'Hello',     'is',       'is',      'is',
-        'learn',     'multiple', 'of',      'one',
-        'place',     'real',     'repeats', 'some',
-        'something', 'taking',   'test',    'test',
-        'test',      'test',     'test',    'test',
-        'test',      'text',     'that',    'the',
-        'the',       'the',      'This',    'three',
-        'to',        'topics',   'two',     'Usually',
-        'word',      'World'
-    ]);
+        'Hello',    'World',     'This', 'is',
+        'some',     'example',   'text', 'that',
+        'repeats',  'the',       'word', 'test',
+        'Usually',  'a',         'test', 'covers',
+        'multiple', 'topics',    'but',  'the',
+        'real',     'test',      'is',   'to',
+        'learn',    'something', 'by',   'the',
+        'end',      'of',        'a',    'test',
+        'A',        'test',      'is',   'taking',
+        'place',    'test',      'one',  'two',
+        'three',    'test'
+      ]);
 
     expect(wordTable.uniqueWordList).toEqual([
         'Hello',     'World',  'This',
@@ -273,26 +273,26 @@ test("Scan a local files content and build frequency tables", () => {
     );
 
     expect(wordTable.wordList).toEqual([
-        'a',        'a',         'a',            'a',
-        'again',    'am',        'and',          'be',
-        'bunch',    'can',       'capabilities', 'continue',
-        'count',    'counting',  'discussing',   'doc',
-        'document', 'each',      'each',         'exactly',
-        'find',     'frequency', 'given',        'going',
-        'Hello',    'Hello',     'how',          'I',
-        'improved', 'in',        'in',           'is',
-        "It's",     "It's",      'Let',          'meet',
-        'meet',     'nice',      'of',           'of',
-        'of',       'outline',   'pleasure',     'repeat',
-        'show',     'some',      'test',         'test',
-        'test',     'test',      'test',         'test',
-        'test',     'test',      'Test',         'text',
-        'text',     'the',       'the',          'the',
-        'the',      'this',      'This',         'times',
-        'to',       'to',        'to',           'to',
-        'to',       'us',        'utility',      'Well',
-        'will',     'word',      'word',         'World',
-        'World',    'you',       'you'
+        'Hello',      'World',    'This',         'is',
+        'some',       'test',     'text',         'to',
+        'outline',    'the',      'capabilities', 'of',
+        'counting',   'the',      'frequency',    'of',
+        'each',       'word',     'in',           'a',
+        'given',      'text',     'document',     'I',
+        'am',         'going',    'to',           'repeat',
+        'test',       'a',        'bunch',        'of',
+        'times',      'to',       'show',         'how',
+        'this',       'utility',  'will',         'count',
+        'each',       'word',     'in',           'a',
+        'doc',        'Test',     'test',         'test',
+        'Well',       'Hello',    'World',        "It's",
+        'nice',       'to',       'meet',         'you',
+        'again',      'test',     'test',         "It's",
+        'a',          'pleasure', 'to',           'meet',
+        'you',        'Let',      'us',           'continue',
+        'discussing', 'the',      'test',         'and',
+        'find',       'exactly',  'the',          'test',
+        'can',        'be',       'improved'
     ]);
 
     expect(wordTable.uniqueWordList).toEqual([
