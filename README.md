@@ -53,8 +53,6 @@ console.log(wordTable.sortedFrequencyList);
 ## Methods
 - `countWords`: Count the frequency of words in a given string.
 - `countWordsInFile`: Count the frequency of words in a local file.
-- `printFrequencies`: Get a stringified version of the word frequency table.
-- `getNthWord`: Get the Nth word from the word list.
 
 ### Attributes
 The `countWords` and `countWordsInFile` functions both return `WordMap` objects which contain the following attributes:
@@ -66,6 +64,8 @@ The `countWords` and `countWordsInFile` functions both return `WordMap` objects 
 - `sortedFrequencyList`: A sorted list of word frequency objects.
 - `wordCount`: Count of all words.
 - `uniqueWordCount`: Count of all unique words.
+- `printFrequencies()`: Get a stringified version of the word frequency table.
+- `getNthWord(n)`: Get the Nth word from the word list.
 
 ## Tests
 Install dev dependencies:
