@@ -35,10 +35,10 @@ console.log(wordTable.uniqueWordCount);
 */
 ```
 
-Sort result by frequency:
+Sort word objects by frequency:
 
 ```js
-const wordTable = wc.countWords(doc);
+const wordTable = countWords(doc);
 console.log(wordTable.sortedFrequencyList);
 /*
 [
