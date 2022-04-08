@@ -31,7 +31,7 @@ console.log(wordTable.uniqueWordCount);
   ...
 }
 32
-30
+25
 */
 ```
 
@@ -51,30 +51,21 @@ console.log(wordTable.sortedFrequencyList);
 ```
 
 ## Methods
-`countWords`: Count the frequency of words in a given string.
-
-`countWordsInFile`: Count the frequency of words in a local file.
-
-`printFrequencies`: Get a stringified version of the word frequency table.
-
-`getNthWord`: Get the Nth word from the word list.
+- `countWords`: Count the frequency of words in a given string.
+- `countWordsInFile`: Count the frequency of words in a local file.
+- `printFrequencies`: Get a stringified version of the word frequency table.
+- `getNthWord`: Get the Nth word from the word list.
 
 ### Attributes
 The `countWords` and `countWordsInFile` functions both return `WordMap` objects which contain the following attributes:
 
-`frequencies`: Object representing the word frequency table.
-
-`wordList`: A list of all the words.
-
-`uniqueWordList`: A list of all the unique words.
-
-`sortedUniqueWordList`: A sorted list of all the unique words.
-
-`sortedFrequencyList`: A sorted list of word frequency objects.
-
-`wordCount`: Count of all words.
-
-`uniqueWordCount`: Count of all unique words.
+- `frequencies`: Object representing the word frequency table.
+- `wordList`: A list of all the words.
+- `uniqueWordList`: A list of all the unique words.
+- `sortedUniqueWordList`: A sorted list of all the unique words.
+- `sortedFrequencyList`: A sorted list of word frequency objects.
+- `wordCount`: Count of all words.
+- `uniqueWordCount`: Count of all unique words.
 
 ## Tests
 Install dev dependencies:
