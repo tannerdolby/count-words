@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 
 type FrequencyObject = {
     frequency: number,
@@ -84,9 +84,9 @@ function countWords(doc: string): WordTable {
  * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
  * @return {WordTable} A hash map containing word data.
  */
-function countWordsInFile(filePath: string, encoding: string="utf8"): WordTable {
-    let doc = fs.readFileSync(filePath, encoding);
-    return countWords(doc);
+async function countWordsInFile(filepath: string, encoding: string="utf8"): Promise<WordTable> {
+    const data = await fs.readFile(filepath, encoding);
+    return countWords(Buffer.from(data).toString());
 };
 
 function searchByValue(frequencies: FrequencyMap, pair: FrequencyObject): FrequencyMap  {
