@@ -17,7 +17,7 @@ function countWords(doc) {
         wordCount: 0,
         uniqueWordCount: 0,
         getNthWord(target) {
-            const key = this.uniqueWordList[target];
+            const key = this.wordList[target];
             return this.sortedFrequencyList.find(wordObj => Object.keys(wordObj).includes(key));
         },
         printFrequencies() {
@@ -32,13 +32,14 @@ function countWords(doc) {
         const cleanWordObj = word.match(wordRegex);
         const cleanWord = cleanWordObj && cleanWordObj[0] ? cleanWordObj[0] : "";
         wordTable.frequencies[cleanWord] = { "frequency": 0, "usage": 0 };
+        wordTable.wordList.push(cleanWord);
         return cleanWord;
     });
     wordTable.wordCount = words.length;
     wordTable.uniqueWordList = [...new Set(words)];
     words = words.sort((a, b) => a.localeCompare(b));
     words.forEach((word) => {
-        wordTable.wordList.push(word);
+        // wordTable.wordList.push(word);
         wordTable.sortedUniqueWordList.push(word);
         const wordData = wordTable.frequencies[word];
         wordData.frequency += 1;
