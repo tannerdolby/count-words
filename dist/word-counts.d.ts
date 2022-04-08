@@ -30,6 +30,6 @@ declare function countWords(doc: string): WordTable;
  * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
  * @return {WordTable} A hash map containing word data.
  */
-declare function countWordsInFile(filePath: string, encoding?: string): WordTable;
+declare function countWordsInFile(filepath: string, encoding?: string): Promise<WordTable>;
 declare function searchByValue(frequencies: FrequencyMap, pair: FrequencyObject): FrequencyMap;
 declare function sortByFrequency(frequencies: FrequencyMap): Array<FrequencyMap>;

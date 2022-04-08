@@ -1,5 +1,14 @@
 "use strict";
-const fs = require("fs");
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const fs = require("fs").promises;
 ;
 const wordRegex = /(\w+\'\w+)|(\w+)/;
 /**
@@ -56,9 +65,11 @@ function countWords(doc) {
  * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
  * @return {WordTable} A hash map containing word data.
  */
-function countWordsInFile(filePath, encoding = "utf8") {
-    let doc = fs.readFileSync(filePath, encoding);
-    return countWords(doc);
+function countWordsInFile(filepath, encoding = "utf8") {
+    return __awaiter(this, void 0, void 0, function* () {
+        const data = yield fs.readFile(filepath, encoding);
+        return countWords(Buffer.from(data).toString());
+    });
 }
 ;
 function searchByValue(frequencies, pair) {
