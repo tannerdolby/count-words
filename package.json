@@ -1,6 +1,6 @@
 {
   "name": "word-counts",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A utility for counting the frequency of words in a given string or file.",
   "main": "./dist/word-counts.js",
   "scripts": {
