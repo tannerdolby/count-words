@@ -38,7 +38,7 @@ function countWords(doc: string): WordTable {
         wordCount: 0,
         uniqueWordCount: 0,
         getNthWord(target: number): FrequencyMap | undefined {
-            const key: string = this.uniqueWordList[target];
+            const key: string = this.wordList[target];
             return this.sortedFrequencyList.find(wordObj => Object.keys(wordObj).includes(key));
         },
         printFrequencies(): string {
@@ -54,6 +54,7 @@ function countWords(doc: string): WordTable {
         const cleanWordObj: RegExpMatchArray | null = word.match(wordRegex);
         const cleanWord = cleanWordObj && cleanWordObj[0] ? cleanWordObj[0] : "";
         wordTable.frequencies[cleanWord] = {"frequency": 0, "usage": 0};
+        wordTable.wordList.push(cleanWord);
         return cleanWord;
     });
 
@@ -63,7 +64,7 @@ function countWords(doc: string): WordTable {
     words = words.sort((a, b) => a.localeCompare(b));
 
     words.forEach((word: string) => {
-        wordTable.wordList.push(word);
+        // wordTable.wordList.push(word);
         wordTable.sortedUniqueWordList.push(word);
         const wordData: FrequencyObject = wordTable.frequencies[word];
         wordData.frequency += 1;
