@@ -1,18 +1,18 @@
-const WordCounts = require("../dist/word-counts");
+const {countWords, countWordsInFile} = require("../dist/word-counts");
 
 test("Scan a string and build frequency tables", () => {
-    const wc = new WordCounts();
+
     const doc = `Hello, World. This is some example text that 
     repeats the word test. Usually a test covers multiple topics
     but the real test is to learn something by the end of a test. A test
     is taking place, test one two three test.`;
-    const frequencies = wc.count(doc);
-    expect(wc.hasScanRun()).toBe(true);
-    expect(wc.doesScanDataExist()).toBe(true);
-    expect(wc.wordCount).toBe(42);
-    expect(wc.uniqueWordCount).toBe(31);
-    expect(wc.getNthWord(3)).toEqual({ is: { frequency: 3, usage: 7.1 } });
-    expect(frequencies).toEqual({
+
+    const wordTable = countWords(doc);
+
+    expect(wordTable.wordCount).toBe(42);
+    expect(wordTable.uniqueWordCount).toBe(31);
+    expect(wordTable.getNthWord(3)).toEqual({ is: { frequency: 3, usage: 7.1 } });
+    expect(wordTable.frequencies).toEqual({
         Hello: { frequency: 1, usage: 2.4 },
         World: { frequency: 1, usage: 2.4 },
         This: { frequency: 1, usage: 2.4 },
@@ -46,7 +46,7 @@ test("Scan a string and build frequency tables", () => {
         three: { frequency: 1, usage: 2.4 }
     });
 
-    expect(wc.sortedFrequencyList).toEqual([
+    expect(wordTable.sortedFrequencyList).toEqual([
         { test: { frequency: 7, usage: 16.7 } },
         { is: { frequency: 3, usage: 7.1 } },
         { the: { frequency: 3, usage: 7.1 } },
@@ -80,7 +80,7 @@ test("Scan a string and build frequency tables", () => {
         { three: { frequency: 1, usage: 2.4 } }
     ]);
 
-    expect(wc.wordList).toEqual([
+    expect(wordTable.wordList).toEqual([
         'a',         'a',        'A',       'but',
         'by',        'covers',   'end',     'example',
         'Hello',     'is',       'is',      'is',
@@ -94,7 +94,7 @@ test("Scan a string and build frequency tables", () => {
         'word',      'World'
     ]);
 
-    expect(wc.uniqueWordList).toEqual([
+    expect(wordTable.uniqueWordList).toEqual([
         'Hello',     'World',  'This',
         'is',        'some',   'example',
         'text',      'that',   'repeats',
@@ -108,7 +108,7 @@ test("Scan a string and build frequency tables", () => {
         'three'
     ]);
 
-    expect(wc.sortedUniqueWordList).toEqual([
+    expect(wordTable.sortedUniqueWordList).toEqual([
         'a',       'A',        'but',
         'by',      'covers',   'end',
         'example', 'Hello',    'is',
@@ -122,7 +122,7 @@ test("Scan a string and build frequency tables", () => {
         'World'
     ]);
 
-    expect(wc.printFrequencies()).toBe(`Hello: { frequency: 1, usage: 2.4 }
+    expect(wordTable.printFrequencies()).toBe(`Hello: { frequency: 1, usage: 2.4 }
 World: { frequency: 1, usage: 2.4 }
 This: { frequency: 1, usage: 2.4 }
 is: { frequency: 3, usage: 7.1 }
@@ -157,14 +157,12 @@ three: { frequency: 1, usage: 2.4 }`
 });
 
 test("Scan a local files content and build frequency tables", () => {
-    const wc = new WordCounts();
-    const frequencies = wc.countWordsInFile("words.md");
-    expect(wc.hasScanRun()).toBe(true);
-    expect(wc.doesScanDataExist()).toBe(true);
-    expect(wc.wordCount).toBe(79);
-    expect(wc.uniqueWordCount).toBe(51);
-    expect(wc.getNthWord(4)).toEqual({ some: { frequency: 1, usage: 1.3 } });
-    expect(frequencies).toEqual({
+    const wordTable = countWordsInFile("words.md");
+
+    expect(wordTable.wordCount).toBe(79);
+    expect(wordTable.uniqueWordCount).toBe(51);
+    expect(wordTable.getNthWord(4)).toEqual({ some: { frequency: 1, usage: 1.3 } });
+    expect(wordTable.frequencies).toEqual({
         Hello: { frequency: 2, usage: 2.5 },
         World: { frequency: 2, usage: 2.5 },
         This: { frequency: 1, usage: 1.3 },
@@ -219,7 +217,7 @@ test("Scan a local files content and build frequency tables", () => {
       }
     );
 
-    expect(wc.sortedFrequencyList).toEqual([
+    expect(wordTable.sortedFrequencyList).toEqual([
         { test: { frequency: 8, usage: 10.1 } },
         { to: { frequency: 5, usage: 6.3 } },
         { the: { frequency: 4, usage: 5.1 } },
@@ -274,7 +272,7 @@ test("Scan a local files content and build frequency tables", () => {
       ]
     );
 
-    expect(wc.wordList).toEqual([
+    expect(wordTable.wordList).toEqual([
         'a',        'a',         'a',            'a',
         'again',    'am',        'and',          'be',
         'bunch',    'can',       'capabilities', 'continue',
@@ -297,7 +295,7 @@ test("Scan a local files content and build frequency tables", () => {
         'World',    'you',       'you'
     ]);
 
-    expect(wc.uniqueWordList).toEqual([
+    expect(wordTable.uniqueWordList).toEqual([
         'Hello',      'World',     'This',         'is',
         'some',       'test',      'text',         'to',
         'outline',    'the',       'capabilities', 'of',
@@ -313,7 +311,7 @@ test("Scan a local files content and build frequency tables", () => {
         'can',        'be',        'improved'
     ]);
 
-    expect(wc.sortedUniqueWordList).toEqual([
+    expect(wordTable.sortedUniqueWordList).toEqual([
         'a',        'again',     'am',       'and',
         'be',       'bunch',     'can',      'capabilities',
         'continue', 'count',     'counting', 'discussing',
@@ -329,7 +327,7 @@ test("Scan a local files content and build frequency tables", () => {
         'word',     'World',     'you'
     ]);
 
-    expect(wc.printFrequencies()).toEqual(`Hello: { frequency: 2, usage: 2.5 }
+    expect(wordTable.printFrequencies()).toEqual(`Hello: { frequency: 2, usage: 2.5 }
 World: { frequency: 2, usage: 2.5 }
 This: { frequency: 1, usage: 1.3 }
 is: { frequency: 1, usage: 1.3 }
