@@ -35,28 +35,17 @@ console.log(wordTable.uniqueWordCount);
 */
 ```
 
-Sort word objects by frequency:
+Scan a file:
 
 ```js
-const wordTable = countWords(doc);
-console.log(wordTable.sortedFrequencyList);
-/*
-[
-  { test: { frequency: 4, usage: 12.9 } },
-  { the: { frequency: 3, usage: 9.7 } },
-  { a: { frequency: 2, usage: 6.5 } },
-  ...
-]
-*/
-
 countWordsInFile("words.md").then(data => {
   console.log(data);
 });
 ```
 
 ## Methods
-- `countWords`: Count the frequency of words in a given string.
-- `countWordsInFile`: Count the frequency of words in a local file.
+- `countWords(doc)`: Count the frequency of words in a given string.
+- `countWordsInFile(file, encoding="utf-8")`: Count the frequency of words in a local file.
 
 ### Attributes
 The `countWords` and `countWordsInFile` functions both return `WordMap` objects which contain the following attributes:
