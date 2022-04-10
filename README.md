@@ -45,7 +45,7 @@ countWordsInFile("words.md").then(data => {
 
 ## Methods
 - `countWords(doc)`: Count the frequency of words in a given string.
-- `countWordsInFile(file, encoding="utf-8")`: Count the frequency of words in a local file.
+- `countWordsInFile(file, encoding="utf8")`: Count the frequency of words in a local file.
 
 ### Attributes
 The `countWords` and `countWordsInFile` functions both return `WordMap` objects which contain the following attributes:
