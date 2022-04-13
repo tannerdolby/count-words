@@ -1,5 +1,5 @@
 # word-counts
-Count all the words in a given string or file and return word counts in a hash table.
+Count all the words in a given string or file and return an object containing word count data.
 
 ## Installation
 Install the package from [npm](https://www.npmjs.com/package/word-counts)
