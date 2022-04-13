@@ -20,15 +20,15 @@ interface WordTable {
 declare const wordRegex: RegExp;
 /**
  * Count the frequency of words in a given string.
- * @param {string} document A string representing the text content to scan.
- * @return {WordTable} A hash map populated with word count data.
+ * @param {string} doc A string representing the text content to scan.
+ * @return {WordTable} An object populated with word count data.
  */
 declare function countWords(doc: string): WordTable;
 /**
  * Count the frequency of words in a given local file containing text content.
- * @param {string} filePath A local filepath representing a document to be scanned.
- * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
- * @return {WordTable} A hash map containing word data.
+ * @param {string} filepath A local filepath representing a document to be scanned.
+ * @param {string} encoding Character encoding to be used for reading the file located at `filepath`. Default: "utf8".
+ * @return {WordTable} A promise containing an object populated with word count data.
  */
 declare function countWordsInFile(filepath: string, encoding?: string): Promise<WordTable>;
 declare function searchByValue(frequencies: FrequencyMap, pair: FrequencyObject): FrequencyMap;

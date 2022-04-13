@@ -13,8 +13,8 @@ const fs = require("fs").promises;
 const wordRegex = /(\w+\'\w+)|(\w+)/;
 /**
  * Count the frequency of words in a given string.
- * @param {string} document A string representing the text content to scan.
- * @return {WordTable} A hash map populated with word count data.
+ * @param {string} doc A string representing the text content to scan.
+ * @return {WordTable} An object populated with word count data.
  */
 function countWords(doc) {
     const wordTable = {
@@ -48,7 +48,6 @@ function countWords(doc) {
     wordTable.uniqueWordList = [...new Set(words)];
     words = words.sort((a, b) => a.localeCompare(b));
     words.forEach((word) => {
-        // wordTable.wordList.push(word);
         wordTable.sortedUniqueWordList.push(word);
         const wordData = wordTable.frequencies[word];
         wordData.frequency += 1;
@@ -61,9 +60,9 @@ function countWords(doc) {
 }
 /**
  * Count the frequency of words in a given local file containing text content.
- * @param {string} filePath A local filepath representing a document to be scanned.
- * @param {string} encoding Character encoding to be used for reading the file located at `filePath`. Default is "utf8".
- * @return {WordTable} A hash map containing word data.
+ * @param {string} filepath A local filepath representing a document to be scanned.
+ * @param {string} encoding Character encoding to be used for reading the file located at `filepath`. Default: "utf8".
+ * @return {WordTable} A promise containing an object populated with word count data.
  */
 function countWordsInFile(filepath, encoding = "utf8") {
     return __awaiter(this, void 0, void 0, function* () {
